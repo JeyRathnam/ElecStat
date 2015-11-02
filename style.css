@@ -1,0 +1,26 @@
+#title p{
+    font-family : Helvetica;
+    font-size : 30px;
+    margin: 0 auto;
+}
+
+#choro-map{
+    width : 99%;
+    height: 45%;
+    border : 1px solid black;
+}
+
+#controls{
+    width: 99%;
+    height: 5%;
+    border : 1px solid black;
+    margin:10px 0;
+}
+
+#line-graph{
+    width : 99%;
+    height : 45%;
+    border : 1px solid black;
+    margin : 10px 0;
+    
+}
