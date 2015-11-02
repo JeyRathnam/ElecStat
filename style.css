@@ -5,8 +5,9 @@
 }
 
 #choro-map{
-    width : 99%;
-    height: 45%;
+    /*width : 99%;
+    height: 45%;*/
+     margin : 10px 0;
     border : 1px solid black;
 }
 
@@ -18,9 +19,10 @@
 }
 
 #line-graph{
-    width : 99%;
-    height : 45%;
+   /* width : 99%;
+    height : 45%;*/
     border : 1px solid black;
     margin : 10px 0;
+    float:right;
     
 }
