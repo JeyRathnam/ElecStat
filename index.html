@@ -10,16 +10,27 @@
     
 <body>
     <script>
+        //Basic init
         var w=window.innerWidth; var h=window.innerHeight;
-        var svgWidth = w/2.1, svgHeight = h/1.5;
+        var svgWidth = w/2.09, svgHeight = h/1.23;
         var svg = d3.select('body').attr("width",w).attr("height",h);
+        
+        //Title
+        svg.append('p').attr('id','ElectStat-title').text("ElectStat");
+        
+        //Choropleth map
         var map = svg.append('svg').attr('id','choro-map').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         d3.xml("Blank_US_Map.svg", "image/svg+xml", function(xml){
             $('#choro-map g').append(xml.documentElement);
             d3.select('#blank_map').attr("viewBox", "10 30 920 500");
         });
         
+        
+        //Line graph
         var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
+        
+        //Controls
+        var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
     </script>
 </body>
 </html>

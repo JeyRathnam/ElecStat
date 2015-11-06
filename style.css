@@ -5,15 +5,14 @@
 }
 
 #choro-map{
-    /*width : 99%;
-    height: 45%;*/
+
      margin : 10px 0;
     border : 1px solid black;
 }
 
 #controls{
-    width: 99%;
-    height: 5%;
+    width: 100%;
+    height: auto;
     border : 1px solid black;
     margin:10px 0;
 }
@@ -27,4 +26,9 @@
 }
 .blank_map{
     width:100%;
+}
+#ElectStat-title{
+    margin : 0 0 0 3px;
+    font-family:Helvetica;
+    font-size: 30px;
 }
