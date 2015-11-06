@@ -1,10 +1,19 @@
 <html>
     <head> 
         <title>ElecStat</title>
+        
+        <!--Scripts be here-->
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+        <script type="application/javascript" src="/script/jquery-ui.min.js"></script>
         
-        <link rel="stylesheet" href="style.css"></link>
+        <script type="application/javascript" src="/script/script.js"></script>
+        <script type="application/javascript" src="/script/jQAllRangeSliders-min.js"></script>
+        
+        <!--Stylesheets-->
+        <link rel="stylesheet" href="/style/style.css"></link>
+        <link rel="stylesheet" href="/style/iThing-min.css"></link>
+
     </head>
     
     
@@ -28,7 +37,13 @@
         var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         
         //Controls
-        var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
+       // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
+        //Doc ready
+       $(document).ready(function() {
+          $("#slider").dateRangeSlider();
+       });
+        //Doc end
     </script>
+    <div id="slider"></div>
 </body>
 </html>
