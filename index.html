@@ -1,25 +1,68 @@
 <html>
     <head> 
         <title>ElecStat</title>
+        
+        <!--Scripts be here-->
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+        <script type="application/javascript" src="/script/jquery-ui.min.js"></script>
         
-        <link rel="stylesheet" href="style.css"></link>
+        <script type="application/javascript" src="/script/script.js"></script>
+        <script type="application/javascript" src="/script/jQAllRangeSliders-min.js"></script>
+        <script type="application/javascript" src="/script/Misc.js"></script>
+        
+        <!--Stylesheets-->
+        <link rel="stylesheet" href="/style/style.css"></link>
+        <link rel="stylesheet" href="/style/iThing-min.css"></link>
+
     </head>
     
     
 <body>
     <script>
+        //Basic init
         var w=window.innerWidth; var h=window.innerHeight;
-        
+        var svgWidth = w/2.09, svgHeight = h/1.3;
         var svg = d3.select('body').attr("width",w).attr("height",h);
-        var map = svg.append('svg').attr('id','choro-map').attr('class','svgclass').attr("width",w/2.1).attr('height',h/1.3).append('g');
+        
+        //Title
+        svg.append('p').attr('id','ElectStat-title').text("ElectStat");
+        
+        //Choropleth map
+        var map = svg.append('svg').attr('id','choro-map').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         d3.xml("Blank_US_Map.svg", "image/svg+xml", function(xml){
             $('#choro-map g').append(xml.documentElement);
-            d3.select('#blank_map').attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "10 -80 920 500");
+            d3.select('#blank_map').attr("viewBox", "10 30 920 500");
         });
+        //Line graph
+        var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         
-        var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",w/2.1).attr('height',h/1.3).append('g');
+        //Controls
+       // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
+        //Doc ready
+       $(document).ready(function() {
+          $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2015}},{defaultValues:{min: 2005, max: 2010}});
+          $("#MonthSlider").rangeSlider(
+              {bounds: {min: 0, max: 11}},
+              {defaultValues:{min: 2, max: 5}},
+              {formatter:function(val){
+                  var value = Math.round(val);
+                  return months[value];
+                  console.log(value);
+              }}
+          );
+       });
+        //Doc end
     </script>
+    <div id ="Source-checklist">
+        <div>
+            <input type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
+            <input type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
+            <input type="checkbox" name="GenTypes" value="Wind" /><label>Wind</label>
+            <input type="checkbox" name="GenTypes" value="Thermal" /><label>Thermal</label>
+        </div>
+    </div>
+    <div id="YearSlider"></div>
+    <div id="MonthSlider"></div>
 </body>
 </html>
