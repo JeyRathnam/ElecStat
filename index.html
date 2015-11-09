@@ -34,6 +34,17 @@
             $('#choro-map g').append(xml.documentElement);
             d3.select('#blank_map').attr("viewBox", "10 30 920 500");
         });
+        map.selectAll(".palette")
+    .data(d3.entries(colorbrewer))
+  .enter().append("span")
+    .attr("class", "palette")
+    .attr("title", function(d) { return d.key; })
+    .on("click", function(d) { console.log(d3.values(d.value).map(JSON.stringify).join("\n")); })
+  .selectAll(".swatch")
+    .data(function(d) { return d.value[d3.keys(d.value).map(Number).sort(d3.descending)[0]]; })
+  .enter().append("span")
+    .attr("class", "swatch")
+    .style("background-color", function(d) { return d; });
         //Line graph
         var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         
