@@ -9,6 +9,7 @@
         
         <script type="application/javascript" src="/script/script.js"></script>
         <script type="application/javascript" src="/script/jQAllRangeSliders-min.js"></script>
+        <script type="application/javascript" src="/script/Misc.js"></script>
         
         <!--Stylesheets-->
         <link rel="stylesheet" href="/style/style.css"></link>
@@ -40,10 +41,28 @@
        // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
         //Doc ready
        $(document).ready(function() {
-          $("#slider").dateRangeSlider();
+          $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2015}},{defaultValues:{min: 2005, max: 2010}});
+          $("#MonthSlider").rangeSlider(
+              {bounds: {min: 0, max: 11}},
+              {defaultValues:{min: 2, max: 5}},
+              {formatter:function(val){
+                  var value = Math.round(val);
+                  return months[value];
+                  console.log(value);
+              }}
+          );
        });
         //Doc end
     </script>
-    <div id="slider"></div>
+    <div id ="Source-checklist">
+        <div>
+            <input type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
+            <input type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
+            <input type="checkbox" name="GenTypes" value="Wind" /><label>Wind</label>
+            <input type="checkbox" name="GenTypes" value="Thermal" /><label>Thermal</label>
+        </div>
+    </div>
+    <div id="YearSlider"></div>
+    <div id="MonthSlider"></div>
 </body>
 </html>

@@ -33,6 +33,16 @@
     font-size: 30px;
 }
 
-#slider{
+#YearSlider,#MonthSlider,#Source-checklist{
     width:700px;
+    margin: 0 auto;
 }
+#Source-checklist div{
+    margin-left:auto;
+margin-right:auto;
+}
+label
+{
+    font-family:Helvetica;
+}
+
