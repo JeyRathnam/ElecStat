@@ -12,7 +12,7 @@
 
 #controls{
     width: 100%;
-    height: auto;
+    height:15%;
     border : 1px solid black;
     margin:10px 0;
 }
@@ -32,3 +32,17 @@
     font-family:Helvetica;
     font-size: 30px;
 }
+
+#YearSlider,#MonthSlider,#Source-checklist{
+    width:700px;
+    margin: 0 auto;
+}
+#Source-checklist div{
+    margin-left:auto;
+margin-right:auto;
+}
+label
+{
+    font-family:Helvetica;
+}
+
