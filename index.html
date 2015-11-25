@@ -68,9 +68,63 @@
         
         //Crossfilter
         
-         d3.csv("Dataset.csv" , function(error, data){
-             console.log(data);
-         });
+         d3.csv("Dataset-formatted.csv" , function(error, data){
+            // console.log(data);
+             
+             var datacf = crossfilter(data);
+             
+             var fuelTypes  = datacf.dimension(function(d) { return d.Type; });
+             var states = datacf.dimension(function(d) { return d.State; });
+             
+             fuelTypes.filter("All fuels");
+
+             var dataFiltered = fuelTypes.top(Infinity);
+             
+             //month function
+             var startYear = 1, endYear = 2, startMonth = "May", endMonth= 'Jun';
+             var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+             
+             var monthStartIndex = mS.indexOf(startMonth);
+             var monthEndIndex = mS.indexOf(endMonth);
+             var monthDiff = monthEndIndex -monthStartIndex ;
+
+             
+             var filterArray = [];
+             for(var i=startYear; i<= endYear;i++){
+                 startYear = i;
+                 for(var j=monthStartIndex;j<=monthEndIndex;j++){
+                     filterArray.push(startYear+"-"+mS[j]);
+                 }
+                 
+             }
+            console.log(filterArray);
+             var yearAndMonthFilterdData = [];
+             
+             for(var i =0; i<dataFiltered.length;i++){
+                 for(var j = 0; j<=monthDiff;j++){
+                    // console.log("J:"+j+"   i:"+i);
+                     var monthandYear = filterArray[j];
+                     var dataValue = dataFiltered[i][monthandYear];
+                     yearAndMonthFilterdData.push(dataValue);
+                 }
+             }
+             
+            var temp = [];
+             
+             for (var name in dataFiltered) {
+                 for(var yearAndMonth in filterArray)
+                 temp[filterArray[yearAndMonth]] = dataFiltered[name][filterArray[yearAndMonth]];
+               // console.log(dataFiltered[name]);
+             }
+             console.log(temp);
+             
+             var temp = dataFiltered[0];
+             
+            // console.log(temp[1]);
+         }); 
+        
+        
     </script>
     <div id ="Source-checklist">
         <div>
