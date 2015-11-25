@@ -76,12 +76,12 @@
              var fuelTypes  = datacf.dimension(function(d) { return d.Type; });
              var states = datacf.dimension(function(d) { return d.State; });
              
-             fuelTypes.filter("All fuels");
+          //   fuelTypes.filter("All fuels");
 
              var dataFiltered = fuelTypes.top(Infinity);
              
              //month function
-             var startYear = 1, endYear = 2, startMonth = "May", endMonth= 'Jun';
+             var startYear = 1, endYear = 12, startMonth = "Jan", endMonth= 'Dec';
              var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
              
@@ -101,27 +101,11 @@
             console.log(filterArray);
              var yearAndMonthFilterdData = [];
              
-             for(var i =0; i<dataFiltered.length;i++){
-                 for(var j = 0; j<=monthDiff;j++){
-                    // console.log("J:"+j+"   i:"+i);
-                     var monthandYear = filterArray[j];
-                     var dataValue = dataFiltered[i][monthandYear];
-                     yearAndMonthFilterdData.push(dataValue);
-                 }
-             }
-             
-            var temp = [];
-             
              for (var name in dataFiltered) {
                  for(var yearAndMonth in filterArray)
-                 temp[filterArray[yearAndMonth]] = dataFiltered[name][filterArray[yearAndMonth]];
-               // console.log(dataFiltered[name]);
+                 yearAndMonthFilterdData[filterArray[yearAndMonth]] = dataFiltered[name][filterArray[yearAndMonth]];
              }
-             console.log(temp);
-             
-             var temp = dataFiltered[0];
-             
-            // console.log(temp[1]);
+             console.log(yearAndMonthFilterdData);
          }); 
         
         
