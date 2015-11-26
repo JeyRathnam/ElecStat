@@ -70,26 +70,30 @@
         
          d3.csv("Dataset-formatted.csv" , function(error, data){
             // console.log(data);
+             var startYear = 1, endYear = 2, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
              var datafil = [];
-             datafil= datafilter(data,"United States","Coal",1,2,"Jan","Feb");
+            datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
              console.log(datafil);
              var datesRequested = [];
-             datesRequested = generateStateFormat(1,2,"Jan","Feb");
-          //   console.log(datesRequested);
+             datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
              
-                        var states=[];
+             var statesInData =[];
              for(var state in data){
-                
-             states.push(data[state]['state']);
+                statesInData.push(data[state]['state']);
              }
-            states = unique(states);
-
+            statesInData = unique(statesInData);
+            var choroData = [];
              var total=0;
+             for(var state in statesInData){
+                  datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
              for(var value in datafil){
                   if(isInArray(value,datesRequested))
                     total += parseInt(datafil[value]);
-             }
-
+                    }
+                 choroData[statesInData[state]] = total;
+                 total = 0;
+              }
+             console.log(choroData);
 
          }); 
         

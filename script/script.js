@@ -7,24 +7,15 @@ function datafilter(data,state,filter,startYear,endYear,startMonth,endMonth){
             fuelTypes.filter(filter);
             states.filter(state);
              var dataFiltered = states.top(Infinity);
-             //var dataFiltered = 
-             //month function
-            // var startYear = 1, endYear = 12, startMonth = "Jan", endMonth= 'Dec';
-          //   var mS = 
 
-             
-
-             //var monthDiff = monthEndIndex -monthStartIndex ;
-
-             
-             var filterArray = [];
-            filterArray = generateStateFormat(startYear,endYear,startMonth,endMonth);
+             var filArray = [];
+            filArray = generateStateFormat(startYear,endYear,startMonth,endMonth);
              var yearAndMonthFilterdData = [];
     yearAndMonthFilterdData['state']=state;
              
              for (var name in dataFiltered) {
-                 for(var yearAndMonth in filterArray)
-                 yearAndMonthFilterdData[filterArray[yearAndMonth]] = dataFiltered[name][filterArray[yearAndMonth]];
+                 for(var yearAndMonth in filArray)
+                 yearAndMonthFilterdData[filArray[yearAndMonth]] = dataFiltered[name][filArray[yearAndMonth]];
              }
              return yearAndMonthFilterdData;
 }
