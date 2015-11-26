@@ -13,19 +13,12 @@ function datafilter(data,state,filter,startYear,endYear,startMonth,endMonth){
           //   var mS = 
 
              
-             var monthStartIndex = months.indexOf(startMonth);
-             var monthEndIndex = months.indexOf(endMonth);
-             var monthDiff = monthEndIndex -monthStartIndex ;
+
+             //var monthDiff = monthEndIndex -monthStartIndex ;
 
              
              var filterArray = [];
-             for(var i=startYear; i<= endYear;i++){
-                 startYear = i;
-                 for(var j=monthStartIndex;j<=monthEndIndex;j++){
-                     filterArray.push(startYear+"-"+months[j]);
-                 }
-                 
-             }
+            filterArray = generateStateFormat(startYear,endYear,startMonth,endMonth);
              var yearAndMonthFilterdData = [];
     yearAndMonthFilterdData['state']=state;
              
@@ -43,4 +36,23 @@ function unique(list) {
         if ($.inArray(e, result) == -1) result.push(e);
     });
     return result;
+}
+
+function generateStateFormat(startYear,endYear,startMonth,endMonth){
+    
+                 var monthStartIndex = months.indexOf(startMonth);
+                var monthEndIndex = months.indexOf(endMonth);
+    var filterArray=[];
+                 for(var i=startYear; i<= endYear;i++){
+                 startYear = i;
+                 for(var j=monthStartIndex;j<=monthEndIndex;j++){
+                     filterArray.push(startYear+"-"+months[j]);
+                 }
+                 
+             }
+    return filterArray;
+}
+
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
 }

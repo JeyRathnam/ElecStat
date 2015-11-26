@@ -71,25 +71,25 @@
          d3.csv("Dataset-formatted.csv" , function(error, data){
             // console.log(data);
              var datafil = [];
-             datafil= datafilter(data,"United States","Coal",1,3,"Jan","Dec");
+             datafil= datafilter(data,"United States","Coal",1,2,"Jan","Feb");
              console.log(datafil);
-           var states=[];
+             var datesRequested = [];
+             datesRequested = generateStateFormat(1,2,"Jan","Feb");
+          //   console.log(datesRequested);
+             
+                        var states=[];
              for(var state in data){
+                
              states.push(data[state]['state']);
              }
             states = unique(states);
-         //    console.log(states);
-             
-             var startMonth = "Jan",endMonth = "Feb", startYear = 1, endear = 2;
-              var datacf = crossfilter(data);
-             
-             var fuelTypes  = datacf.dimension(function(d) { return d.Type; });
-             var statesFilter = datacf.dimension(function(d) { return d.state; });
-             
-             fuelTypes.filter("All fuels");
-             statesFilter.filter("Illinois");
-             
-          //   console.log(statesFilter.top(Infinity));
+
+             var total=0;
+             for(var value in datafil){
+                  if(isInArray(value,datesRequested))
+                    total += parseInt(datafil[value]);
+             }
+
 
          }); 
         
