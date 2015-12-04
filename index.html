@@ -74,9 +74,10 @@
              var datafil = [];
             datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
              console.log(datafil);
+           //  console.log(statesCode[statesInData[state]]);
              var datesRequested = [];
              datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
-             
+             console.log(datesRequested[0]);
              var statesInData =[];
              for(var state in data){
                 statesInData.push(data[state]['state']);
@@ -90,13 +91,12 @@
                   if(isInArray(value,datesRequested))
                     total += parseInt(datafil[value]);
                     }
-                 choroData[statesInData[state]] = total;
+                 choroData[states_hash[statesInData[state]]] = total;
                  total = 0;
               }
              console.log(choroData);
-
          }); 
-        
+        //states_hash[statesInData[state]]
         
     </script>
     <div id ="Source-checklist">
