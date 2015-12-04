@@ -6,6 +6,7 @@
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
         <script type="application/javascript" src="/script/jquery-ui.min.js"></script>
+        <script type="application/javascript" src="/script/crossfilter.min.js"></script>
         
         <script type="application/javascript" src="/script/script.js"></script>
         <script type="application/javascript" src="/script/jQAllRangeSliders-min.js"></script>
@@ -64,6 +65,39 @@
           );
        });
         //Doc end
+        
+        //Crossfilter
+        
+         d3.csv("Dataset-formatted.csv" , function(error, data){
+            // console.log(data);
+             var startYear = 1, endYear = 2, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
+             var datafil = [];
+            datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
+             console.log(datafil);
+             var datesRequested = [];
+             datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
+             
+             var statesInData =[];
+             for(var state in data){
+                statesInData.push(data[state]['state']);
+             }
+            statesInData = unique(statesInData);
+            var choroData = [];
+             var total=0;
+             for(var state in statesInData){
+                  datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
+             for(var value in datafil){
+                  if(isInArray(value,datesRequested))
+                    total += parseInt(datafil[value]);
+                    }
+                 choroData[statesInData[state]] = total;
+                 total = 0;
+              }
+             console.log(choroData);
+
+         }); 
+        
+        
     </script>
     <div id ="Source-checklist">
         <div>
