@@ -47,7 +47,7 @@ label
 }
 .palette {
   cursor: pointer;
-  display: inline-block;
+  display: inline-block; 
   vertical-align: bottom;
   margin: 4px 0 4px 6px;
   padding: 4px;
@@ -61,3 +61,32 @@ label
   width: 37px;
   height: 22px;
 }
+
+.class-for-color-1 {
+    fill: #ffffe5;
+}
+.class-for-color-2 {
+    fill: #f7fcb9;
+}
+.class-for-color-3 {
+    fill: #d9f0a3;
+}
+.class-for-color-4 {
+    fill: #addd8e;
+}
+.class-for-color-5 {
+    fill: #78c679;
+}
+.class-for-color-6 {
+    fill: #41ab5d;
+}
+.class-for-color-7 {
+    fill: #238443;
+}
+.class-for-color-8 {
+    fill: #006837;
+}
+.class-for-color-9 {
+    fill: #ffffe5;
+}
+

@@ -25,6 +25,7 @@
         var w=window.innerWidth; var h=window.innerHeight;
         var svgWidth = w/2.09, svgHeight = h/1.3;
         var svg = d3.select('body').attr("width",w).attr("height",h);
+        var startYear = 1, endYear = 12, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
         
         //Title
         svg.append('p').attr('id','ElectStat-title').text("ElectStat");
@@ -63,14 +64,19 @@
                   console.log(value);
               }}
           );
+           
+        $("#YearSlider").bind("valuesChanging", function(e, data){
+            startYear = Math.round(data.values.min);
+            endYear = Math.round(data.values.max);
+            bindDataToMap();
+        });   
        });
         //Doc end
         
         //Crossfilter
-        
          d3.csv("Dataset-formatted.csv" , function(error, data){
             // console.log(data);
-             var startYear = 1, endYear = 2, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
+             
              var datafil = [];
             datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
              console.log(datafil);
@@ -83,7 +89,7 @@
                 statesInData.push(data[state]['state']);
              }
             statesInData = unique(statesInData);
-            var choroData = [];
+            var choroData = [],justData=[];
              var total=0;
              for(var state in statesInData){
                   datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
@@ -91,12 +97,51 @@
                   if(isInArray(value,datesRequested))
                     total += parseInt(datafil[value]);
                     }
+                 if(isNaN(total)){ total= 0;}
                  choroData[states_hash[statesInData[state]]] = total;
+                // justData.push(parseInt(total));
                  total = 0;
               }
+             for(var value in choroData){
+                 if(value != 'undefined' && value != 'US')
+                 justData.push(choroData[value]);
+             }
+             justData.sort(compareNumbers);
              console.log(choroData);
+             console.log(justData);
+             //choroData.remove(undefined);
+            var maxVal = (Math.max.apply(Math, justData))/9;
+             var constMax = maxVal;
+             var maxValues = [];
+             
+             for(var i=0 ; i<9;i++){
+                maxVal = Math.round(maxVal);
+                 maxValues.push(maxVal);
+                 maxVal = maxVal+constMax;
+             }
+             for(var value in choroData){
+                 if(choroData [value] >= 0 && choroData[value] < maxValues[0])
+                        $('#'+value).css('fill','#ffffe5');
+                 if(choroData [value] >= maxValues[0] && choroData[value] <= maxValues[1])
+                        $('#'+value).css('fill','#f7fcb9');
+                 if(choroData [value] >= maxValues[1] && choroData[value] <= maxValues[2])
+                        $('#'+value).css('fill','#d9f0a3');
+                 if(choroData [value] >= maxValues[2] && choroData[value] <= maxValues[3])
+                        $('#'+value).css('fill','#addd8e');
+                 if(choroData [value] >= maxValues[3] && choroData[value] <= maxValues[4])
+                        $('#'+value).css('fill','#78c679');
+                 if(choroData [value] >= maxValues[4] && choroData[value] <= maxValues[5])
+                        $('#'+value).css('fill','#41ab5d');
+                 if(choroData [value] >= maxValues[5] && choroData[value] <= maxValues[6])
+                        $('#'+value).css('fill','#238443');
+                 if(choroData [value] >= maxValues[6] && choroData[value] <= maxValues[7])
+                        $('#'+value).css('fill','#006837');
+                 if(choroData [value] >= maxValues[7] && choroData[value] <= maxValues[8])
+                        $('#'+value).css('fill','#004529');
+             }
+             console.log(maxValues);
          }); 
-        //states_hash[statesInData[state]]
+
         
     </script>
     <div id ="Source-checklist">

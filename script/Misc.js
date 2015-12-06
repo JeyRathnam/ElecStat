@@ -9,13 +9,6 @@ var colorbrewer = {YlGn: {
 9: ["#ffffe5","#f7fcb9","#d9f0a3","#addd8e","#78c679","#41ab5d","#238443","#006837","#004529"]
 }};
 
-var date_sort_desc = function (date1, date2) {
-  // This is a comparison function that will result in dates being sorted in
-  // DESCENDING order.
-  if (date1 > date2) return -1;
-  if (date1 < date2) return 1;
-  return 0;
-};
 var states_hash =
   {
       'United States':'US',
@@ -79,3 +72,11 @@ var states_hash =
     'Wisconsin': 'WI',
     'Wyoming': 'WY'
   }
+
+function compareNumbers(a, b)
+{
+    return a - b;
+}
+
+
+
