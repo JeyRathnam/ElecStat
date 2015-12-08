@@ -5,42 +5,20 @@
         <!--Scripts be here-->
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-        <script type="application/javascript" src="script/jquery-ui.min.js"></script>
-        <script type="application/javascript" src="script/crossfilter.min.js"></script>
+        <script type="application/javascript" src="/script/jquery-ui.min.js"></script>
+        <script type="application/javascript" src="/script/crossfilter.min.js"></script>
         
-        <script type="application/javascript" src="script/script.js"></script>
-        <script type="application/javascript" src="script/jQAllRangeSliders-min.js"></script>
-        <script type="application/javascript" src="script/Misc.js"></script>
+        <script type="application/javascript" src="/script/script.js"></script>
+        <script type="application/javascript" src="/script/jQAllRangeSliders-min.js"></script>
+        <script type="application/javascript" src="/script/Misc.js"></script>
         
         <!--Stylesheets-->
-        <link rel="stylesheet" href="style/style.css"></link>
-        <link rel="stylesheet" href="style/iThing-min.css"></link>
-
-
-
-
+        <link rel="stylesheet" href="/style/style.css"></link>
+        <link rel="stylesheet" href="/style/iThing-min.css"></link>
 
     </head>
     
-    <style> /* set the CSS */
-
-body { font: 12px Arial;}
-
-path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-
-</style>
+    
 <body>
     <script>
         //Basic init
@@ -69,18 +47,13 @@ path {
   .enter().append("span")
     .attr("class", "swatch")
     .style("background-color", function(d) { return d; });
-       
-        
-        
-        
-        
-        
-        
-        
         //Line graph
         var lineGraph = svg.append('svg').attr('id','line-graph').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> parent of f0754c0... Graph
         
         //Controls
        // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
