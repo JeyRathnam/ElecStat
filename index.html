@@ -47,6 +47,7 @@ path {
         var w=window.innerWidth; var h=window.innerHeight;
         var svgWidth = w/2.09, svgHeight = h/1.3;
         var svg = d3.select('body').attr("width",w).attr("height",h);
+        var startYear = 1, endYear = 1, startMonth = "Jan",endMonth = "Jan",state="United States",filter="Nuclear",Globaldata=[];
         
         //Title
         svg.append('p').attr('id','ElectStat-title').text("ElectStat");
@@ -175,6 +176,7 @@ var svg = d3.select("body")
        // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
         //Doc ready
        $(document).ready(function() {
+
           $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2015}},{defaultValues:{min: 2005, max: 2010}});
           $("#MonthSlider").rangeSlider(
               {bounds: {min: 0, max: 11}},
@@ -185,49 +187,56 @@ var svg = d3.select("body")
                   console.log(value);
               }}
           );
-       });
-        //Doc end
+           
+        $("#YearSlider").bind("valuesChanging", function(e, data){
+            startYear = (Math.round(data.values.min))-2000;
+            endYear = (Math.round(data.values.max))-2000;
+            render();
+        });   
+           
+           $("#MonthSlider").bind("valuesChanging", function(e, data){
+               startMonth = months[Math.round(data.values.min)];
+               endMonth = months[Math.round(data.values.max)];
+               
+            render();
+        }); 
+            $('.Source-checklist').change(function(){ 
+                    render();
+         });
+           
+       
+                
+       
         
         //Crossfilter
-        
+ //$('.Source-checklist').change(function(){ console.log('checkl'); });
+        function render(){
          d3.csv("Dataset-formatted.csv" , function(error, data){
-            // console.log(data);
-             var startYear = 1, endYear = 2, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
-             var datafil = [];
-            datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
-             console.log(datafil);
-             var datesRequested = [];
-             datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
              
-             var statesInData =[];
-             for(var state in data){
-                statesInData.push(data[state]['state']);
-             }
-            statesInData = unique(statesInData);
-            var choroData = [];
-             var total=0;
-             for(var state in statesInData){
-                  datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
-             for(var value in datafil){
-                  if(isInArray(value,datesRequested))
-                    total += parseInt(datafil[value]);
-                    }
-                 choroData[statesInData[state]] = total;
-                 total = 0;
-              }
-             console.log(choroData);
-
+             var checkedValues = $('input:checkbox:checked.Source-checklist').map(function () {
+                return this.value;
+            }).get();
+             Globaldata = data;
+             var datafil = [];
+           // datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
+             //console.log(datafil);
+           //  console.log(statesCode[statesInData[state]]);
+            mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth);
+             
          }); 
-        
-        
+        }
+        render();
+         
+        }); //Doc end
     </script>
-    <div id ="Source-checklist">
-        <div>
-            <input type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
-            <input type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
-            <input type="checkbox" name="GenTypes" value="Wind" /><label>Wind</label>
-            <input type="checkbox" name="GenTypes" value="Thermal" /><label>Thermal</label>
-        </div>
+    <div>
+        <form>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Wind" checked/><label>Wind</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Geothermal" /><label>Geothermal</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Coal" /><label>Coal</label>
+        </form>
     </div>
     <div id="YearSlider"></div>
     <div id="MonthSlider"></div>
