@@ -48,7 +48,7 @@ function isInArray(value, array) {
   return array.indexOf(value) > -1;
 }
 
-function mapData(data,state,filter,startYear,endYear,startMonth,endMonth){
+function mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth){
     var datesRequested = [];
              datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
              var statesInData =[];
@@ -57,19 +57,24 @@ function mapData(data,state,filter,startYear,endYear,startMonth,endMonth){
              }
             statesInData = unique(statesInData);
             var choroData = [],justData=[];
+                for(var state in statesInData){
+                    choroData[states_hash[statesInData[state]]] = 0;
+                }
              var total=0;
+        for(var filter in checkedValues){
              for(var state in statesInData){
-                  datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
+                  datafil= datafilter(data,statesInData[state],checkedValues[filter],startYear,endYear,startMonth,endMonth);
              for(var value in datafil){
                   if(isInArray(value,datesRequested))
                     total += parseInt(datafil[value]);
                     }
                  if(isNaN(total)){ total= 0;}
-                 choroData[states_hash[statesInData[state]]] = total;
+                 choroData[states_hash[statesInData[state]]] = choroData[states_hash[statesInData[state]]] + total;
                 // justData.push(parseInt(total));
                  total = 0;
               }
-    console.dir(choroData)
+        }
+    console.dir(choroData);
              for(var value in choroData){
                  if(value != 'undefined' && value != 'US')
                  justData.push(choroData[value]);
