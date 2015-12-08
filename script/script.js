@@ -74,7 +74,6 @@ function mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth)
                  total = 0;
               }
         }
-    console.dir(choroData);
              for(var value in choroData){
                  if(value != 'undefined' && value != 'US')
                  justData.push(choroData[value]);
