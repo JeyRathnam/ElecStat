@@ -25,7 +25,7 @@
         var w=window.innerWidth; var h=window.innerHeight;
         var svgWidth = w/2.09, svgHeight = h/1.3;
         var svg = d3.select('body').attr("width",w).attr("height",h);
-        var startYear = 1, endYear = 12, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Coal";
+        var startYear = 1, endYear = 14, startMonth = "Jan",endMonth = "Dec",state="United States",filter="Nuclear",Globaldata=[];
         
         //Title
         svg.append('p').attr('id','ElectStat-title').text("ElectStat");
@@ -54,6 +54,7 @@
        // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
         //Doc ready
        $(document).ready(function() {
+
           $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2015}},{defaultValues:{min: 2005, max: 2010}});
           $("#MonthSlider").rangeSlider(
               {bounds: {min: 0, max: 11}},
@@ -66,91 +67,53 @@
           );
            
         $("#YearSlider").bind("valuesChanging", function(e, data){
-            startYear = Math.round(data.values.min);
-            endYear = Math.round(data.values.max);
-            bindDataToMap();
+            startYear = (Math.round(data.values.min))-2000;
+            endYear = (Math.round(data.values.max))-2000;
+            render();
         });   
-       });
-        //Doc end
+           
+           $("#MonthSlider").bind("valuesChanging", function(e, data){
+               startMonth = months[Math.round(data.values.min)];
+               endMonth = months[Math.round(data.values.max)];
+               
+            render();
+        }); 
+           // $('.Source-checklist').change(function(){ 
+         var values = $('input:checkbox:checked.Source-checklist').map(function () {
+                return this.value;
+            }).get();
+        console.log(values);
+       //  });
+           
+       
+                
+       
         
         //Crossfilter
+ //$('.Source-checklist').change(function(){ console.log('checkl'); });
+        function render(){
          d3.csv("Dataset-formatted.csv" , function(error, data){
             // console.log(data);
-             
+             Globaldata = data;
              var datafil = [];
-            datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
-             console.log(datafil);
+           // datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
+             //console.log(datafil);
            //  console.log(statesCode[statesInData[state]]);
-             var datesRequested = [];
-             datesRequested = generateStateFormat(startYear,endYear,startMonth,endMonth);
-             console.log(datesRequested[0]);
-             var statesInData =[];
-             for(var state in data){
-                statesInData.push(data[state]['state']);
-             }
-            statesInData = unique(statesInData);
-            var choroData = [],justData=[];
-             var total=0;
-             for(var state in statesInData){
-                  datafil= datafilter(data,statesInData[state],filter,startYear,endYear,startMonth,endMonth);
-             for(var value in datafil){
-                  if(isInArray(value,datesRequested))
-                    total += parseInt(datafil[value]);
-                    }
-                 if(isNaN(total)){ total= 0;}
-                 choroData[states_hash[statesInData[state]]] = total;
-                // justData.push(parseInt(total));
-                 total = 0;
-              }
-             for(var value in choroData){
-                 if(value != 'undefined' && value != 'US')
-                 justData.push(choroData[value]);
-             }
-             justData.sort(compareNumbers);
-             console.log(choroData);
-             console.log(justData);
-             //choroData.remove(undefined);
-            var maxVal = (Math.max.apply(Math, justData))/9;
-             var constMax = maxVal;
-             var maxValues = [];
+            mapData(data,state,filter,startYear,endYear,startMonth,endMonth);
              
-             for(var i=0 ; i<9;i++){
-                maxVal = Math.round(maxVal);
-                 maxValues.push(maxVal);
-                 maxVal = maxVal+constMax;
-             }
-             for(var value in choroData){
-                 if(choroData [value] >= 0 && choroData[value] < maxValues[0])
-                        $('#'+value).css('fill','#ffffe5');
-                 if(choroData [value] >= maxValues[0] && choroData[value] <= maxValues[1])
-                        $('#'+value).css('fill','#f7fcb9');
-                 if(choroData [value] >= maxValues[1] && choroData[value] <= maxValues[2])
-                        $('#'+value).css('fill','#d9f0a3');
-                 if(choroData [value] >= maxValues[2] && choroData[value] <= maxValues[3])
-                        $('#'+value).css('fill','#addd8e');
-                 if(choroData [value] >= maxValues[3] && choroData[value] <= maxValues[4])
-                        $('#'+value).css('fill','#78c679');
-                 if(choroData [value] >= maxValues[4] && choroData[value] <= maxValues[5])
-                        $('#'+value).css('fill','#41ab5d');
-                 if(choroData [value] >= maxValues[5] && choroData[value] <= maxValues[6])
-                        $('#'+value).css('fill','#238443');
-                 if(choroData [value] >= maxValues[6] && choroData[value] <= maxValues[7])
-                        $('#'+value).css('fill','#006837');
-                 if(choroData [value] >= maxValues[7] && choroData[value] <= maxValues[8])
-                        $('#'+value).css('fill','#004529');
-             }
-             console.log(maxValues);
          }); 
-
-        
+        }
+        render();
+         
+        }); //Doc end
     </script>
-    <div id ="Source-checklist">
-        <div>
-            <input type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
-            <input type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
-            <input type="checkbox" name="GenTypes" value="Wind" /><label>Wind</label>
-            <input type="checkbox" name="GenTypes" value="Thermal" /><label>Thermal</label>
-        </div>
+    <div>
+        <form>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Wind" checked/><label>Wind</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Thermal" /><label>Thermal</label>
+        </form>
     </div>
     <div id="YearSlider"></div>
     <div id="MonthSlider"></div>
