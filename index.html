@@ -71,7 +71,7 @@ body { font: 12px Arial;}
         //Line graph
         
       // Set the dimensions of the canvas / graph
-var margin = {top: 30, right: 20, bottom: 30, left: 50},
+var margin = {top: 10, right: 20, bottom: 30, left: 50},
     width = svgWidth - margin.left - margin.right,
     height = svgHeight - margin.top - margin.bottom;
 
@@ -84,19 +84,8 @@ var svg = d3.select("body")
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
+              "translate(" + margin.left + "," + 0 + ")");
 
-// Get the data
-     
- var x = d3.time.scale().range([0, width]);
-var y = d3.scale.linear().range([height, 0]);
-     
-     
- var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
-
-var yAxis = d3.svg.axis().scale(y)
-    .orient("left").ticks(5);
 
      var parseDate = d3.time.format("%y-%b").parse;
         var minMax = [];
@@ -147,7 +136,18 @@ var yAxis = d3.svg.axis().scale(y)
                 }
                 console.log(dataForLine);
             
-            
+            // Get the data
+     
+ var x = d3.time.scale().range([0, width]);
+var y = d3.scale.linear().range([height, 0]);
+     
+     
+ var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(15);
+
+var yAxis = d3.svg.axis().scale(y)
+    .orient("left").ticks(10);
+
          var Valueline = d3.svg.line()
          .x(function(d){return x(parseDate(d.date));})
          .y(function(d) { return y(d.amount); });
@@ -158,14 +158,19 @@ var yAxis = d3.svg.axis().scale(y)
              svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
+        .call(xAxis)
+             .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", "rotate(-65)" );;
          
           svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
             
             console.log(d3.extent(data, function(d) { return d.date; }));
-         svg.append("path").attr("class",data[datumValue]['source']).attr("d",Valueline(dataForLine));
+         svg.append('g').append("path").attr("class",data[datumValue]['source']).attr("d",Valueline(dataForLine));
             
             }
         }
