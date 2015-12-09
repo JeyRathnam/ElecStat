@@ -84,7 +84,7 @@ var svg = d3.select("body")
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("transform", 
-              "translate(" + margin.left + "," + 0 + ")");
+              "translate(" + margin.left + "," + 3 + ")");
 
 
      var parseDate = d3.time.format("%y-%b").parse;
@@ -104,8 +104,6 @@ var svg = d3.select("body")
                 data[i]['source'] = checkedValues[value];
                 i++;
             }
-        
-            console.log(data);
             var max = Math.max.apply(Math, minMax),min = Math.min.apply(Math, minMax);
             
            /* for(var value in arr){
@@ -126,7 +124,6 @@ var svg = d3.select("body")
             $( "#line-graph g path" ).remove();
             for (var datumValue in data){    
                 var dataForLine = [];
-                console.log(data[datumValue]);
                 var monAndYear = generateStateFormat(startYear,endYear,startMonth,endMonth);
                 for(var value in monAndYear){
                     var obj = {};
@@ -134,7 +131,6 @@ var svg = d3.select("body")
                     obj.amount = data[datumValue][monAndYear[value]];
                     dataForLine.push(obj);
                 }
-                console.log(dataForLine);
             
             // Get the data
      
@@ -152,7 +148,7 @@ var yAxis = d3.svg.axis().scale(y)
          .x(function(d){return x(parseDate(d.date));})
          .y(function(d) { return y(d.amount); });
 
-         x.domain(d3.extent(dataForLine, function(d) { return parseDate(d.date); }));
+         x.domain(d3.extent(dataForLine, function(d) {return parseDate(d.date); }));
          y.domain([0,max]);
             
              svg.append("g")
@@ -168,11 +164,11 @@ var yAxis = d3.svg.axis().scale(y)
           svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
-            
-            console.log(d3.extent(data, function(d) { return d.date; }));
          svg.append('g').append("path").attr("class",data[datumValue]['source']).attr("d",Valueline(dataForLine));
             
             }
+            console.log(x.invert(d3.mouse(this)[0]));
+            
         }
      
      
@@ -184,7 +180,7 @@ var yAxis = d3.svg.axis().scale(y)
         //Doc ready
        $(document).ready(function() {
 
-          $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2015}},{defaultValues:{min: 2005, max: 2010}});
+          $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2014}},{defaultValues:{min: 2005, max: 2010}});
           $("#MonthSlider").rangeSlider(
               {bounds: {min: 0, max: 11}},
               {defaultValues:{min: 2, max: 5}},
