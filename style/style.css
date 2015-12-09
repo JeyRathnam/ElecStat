@@ -103,3 +103,9 @@ label
     stroke-width: 1;
     shape-rendering: crispEdges;
 }
+path:hover{
+    fill:none;
+    stroke:black;
+    stroke-width:2.5px;
+    pointer-events:all;
+}

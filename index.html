@@ -50,7 +50,7 @@ body { font: 12px Arial;}
         var map = svg.append('svg').attr('id','choro-map').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         d3.xml("Blank_US_Map.svg", "image/svg+xml", function(xml){
             $('#choro-map g').append(xml.documentElement);
-            d3.select('#blank_map').attr("viewBox", "10 30 920 500");
+            d3.select('#blank_map').attr("viewBox", "10 30 920 500").on("mouseover",function(d) {console.log(this);});
         });
         map.selectAll(".palette")
     .data(d3.entries(colorbrewer))
