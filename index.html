@@ -92,29 +92,45 @@ var y = d3.scale.linear().range([height, 0]);
      
      
  var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(15).tickFormat(d3.time.format("%b-%Y"));
+    .orient("bottom").ticks(5);
 
 var yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(5);
 
      var parseDate = d3.time.format("%y-%b").parse;
-     function drawline(checkedValues,dataSet)
+     function drawline(arr)
         {
             var data=[],i=0;
-            for(var sourceValue in checkedValues){
-             var datafil= datafilter(dataSet,state,checkedValues[sourceValue],startYear,endYear,startMonth,endMonth);
-            for(var value in datafil){
+            for(var value in arr){
                 if(value != 'state'){
                 var obj={};
-                    obj['source'] = checkedValues[sourceValue];
                 obj['date'] = parseDate(value);
-                obj['amount'] = datafil[value];
+                obj['amount'] = arr[value];
                 data.push(obj);
                     i++;
                 }
             }
-            }
-            return data;
+            console.log(data);
+         var Valueline = d3.svg.line()
+         .x(function(d){return x(d.date);})
+         .y(function(d) { return y(d.amount); });
+        
+            
+         
+         x.domain(d3.extent(data, function(d) { return d.date; }));
+         y.domain([0,d3.max(data, function(d) { return d.amount; })]);
+            
+             svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+         
+          svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+            
+            console.log(d3.extent(data, function(d) { return d.date; }));
+         svg.append("path").attr("class","line").attr("d",Valueline(data));
         
      }
      
@@ -169,13 +185,12 @@ var yAxis = d3.svg.axis().scale(y)
                 return this.value;
             }).get();
              Globaldata = data;
-             var datafil = [],test=[];;
-           
+             var datafil = [];
+            datafil= datafilter(data,state,filter,startYear,endYear,startMonth,endMonth);
              //console.log(datafil);
            //  console.log(statesCode[statesInData[state]]);
             mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth);
-             test = drawline(checkedValues,data);
-             console.log(test);
+             drawline(datafil);
          }); 
         }
         render();
