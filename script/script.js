@@ -20,6 +20,7 @@ function datafilter(data,state,filter,startYear,endYear,startMonth,endMonth){
              return yearAndMonthFilterdData;
 }
 
+
 function unique(list) {
     var result = [];
     $.each(list, function(i, e) {
