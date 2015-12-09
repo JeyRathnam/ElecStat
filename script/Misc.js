@@ -1,5 +1,4 @@
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
- var month_names= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var colorbrewer = {YlGn: {
 3: ["#f7fcb9","#addd8e","#31a354"],
 4: ["#ffffcc","#c2e699","#78c679","#238443"],
