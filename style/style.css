@@ -90,7 +90,7 @@ label
     fill: #ffffe5;
 }
 
-.wind,.Nuclear,.Coal,.Solar,.Geothermal { 
+.wind,.Nuclear,.Coal,.Solar,.Geothermal,.Biomass,.Natural-gas,.Petroleum-liquids,.All-fuels { 
     stroke: steelblue;
     stroke-width: 2;
     fill: none;
