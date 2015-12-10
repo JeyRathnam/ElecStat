@@ -248,18 +248,31 @@ var yAxis = d3.svg.axis().scale(y)
          
         }); //Doc end
     </script>
-    <div>
-        <form>
+    <div class="inlineblock">
+        <form >
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Nuclear" /><label>Nuclear</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Solar" /><label>Solar</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Wind" checked/><label>Wind</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Geothermal" /><label>Geothermal</label>
+            <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Coal" /><label>Coal</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Biomass" /><label>Biomass</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Natural-gas" /><label>Natural gas</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="Petroleum-liquids" /><label>Petroleum liquids</label>
             <input class ="Source-checklist" type="checkbox" name="GenTypes" value="All-fuels" /><label>All fuels</label>
         </form>
     </div>
+    </div>
+        <div id="LegendOutline" class="inlineblock">
+            <div class="Eachlegend" > <div class="squareLegend" id="one"> </div>  <div class="textlegend">Nuclear</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="two"> </div>  <div class="textlegend">Solar</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="three"> </div>  <div class="textlegend">Wind</div></div>
+            <div class="Eachlegend"> <div class="squareLegend"  id="four"> </div>  <div class="textlegend">Geothermal</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="five"> </div>  <div class="textlegend">Coal</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="five"> </div>  <div class="textlegend">Coal</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="five"> </div>  <div class="textlegend">Coal</div></div>
+            <div class="Eachlegend" > <div class="squareLegend" id="five"> </div>  <div class="textlegend">Coal</div></div>
+           
+        </div>
     <div id="YearSlider"></div>
     <div id="MonthSlider"></div>
 </body>

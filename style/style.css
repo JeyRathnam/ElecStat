@@ -115,3 +115,69 @@ path:hover{
     float : left;
     font-family: helvetica;
 }
+
+#LegendOutline
+{
+    float: right;
+    width: 650px;
+    height:50px;
+    border: 1px
+       
+}
+.squareLegend   {
+    width:8px;
+    height: 8px;
+    border: 1px
+    solid #000;
+    display: inline-block;
+}
+.Eachlegend
+{
+    display: inline;
+    padding-right: 5px;
+}
+.textlegend
+{
+    display: inline-block;
+}
+.inlineblock
+{
+    display: inline-block;
+}
+#Nuclear-legend
+{
+  background:blue;
+}
+#Solar-legend
+{
+  background:orange;
+}
+#Wind-legend
+{
+  background:green;
+}
+#Geothermal-legend
+{
+  background:red;
+}
+#Coal-legend
+{
+  background:black;
+}
+#Biomass-legend
+{
+  background:purple;
+}
+#Naturalgas-legend
+{
+  background:brown;
+}
+
+#Petroleumliquids-legend
+{
+  background: pink ;
+}
+#Allfuels-legend
+{
+  background:yellow;
+}
