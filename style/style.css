@@ -104,8 +104,14 @@ label
     shape-rendering: crispEdges;
 }
 path:hover{
-    fill:none;
     stroke:black;
     stroke-width:2.5px;
     pointer-events:all;
+}
+
+#choro-map text {
+    text-anchor:middle;
+    font-size: 25px;
+    float : left;
+    font-family: helvetica;
 }
