@@ -42,7 +42,8 @@ body { font: 12px Arial;}
         var svgWidth = w/2.09, svgHeight = h/1.3;
         var svg = d3.select('body').attr("width",w).attr("height",h);
         var startYear = 5, endYear = 10, startMonth = "Mar",endMonth = "Jun",state="United States",filter="Nuclear",Globaldata=[];
-        
+         var PalletRectoffset=-20;
+        var palletAlignWidth = svgWidth-390, palletAlignHeight = svgHeight-(svgHeight*.1);
         //Title
         svg.append('p').attr('id','ElectStat-title').text("ElectStat");
         
@@ -55,13 +56,21 @@ body { font: 12px Arial;}
             d3.select('#blank_map').attr("viewBox", "10 30 920 500");
             d3.select('#blank_map').selectAll('path').on('mouseover',function(d){
                 console.log($(this).attr('title'));
-               $('#choro-map text').text(this.id);
+               $('#choro-map text').text(stateAbbrevToFullName[this.id]+":"+$(this).attr('title'));
             });
-           
+                   var colorpallet = map.append('svg').attr('id','color-pallet').append('g').attr("transform","translate("+palletAlignWidth+","+palletAlignHeight+")");
+        colorpallet.selectAll("rect")
+    .data(d3.entries(swatch))
+  .enter().append("rect")
+    .attr("class", "palette")
+    .attr("x",function(d){ PalletRectoffset = PalletRectoffset+40; return PalletRectoffset;})
+    .attr("width",40)
+    .attr("height",40)
+    .attr("fill", function(d) { console.log(d);return d.value; });
             
         });
         map.selectAll(".palette")
-    .data(d3.entries(colorbrewer))
+    .data(d3.entries(swatch))
   .enter().append("span")
     .attr("class", "palette")
     .attr("title", function(d) { return d.key; })

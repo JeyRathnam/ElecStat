@@ -90,24 +90,30 @@ function mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth)
              }
              for(var value in choroData){
                  if(choroData [value] >= 0 && choroData[value] < maxValues[0])
-                       { $('#'+value).css('fill','#ffffe5');$('#'+value).attr('title', choroData[value]);}
-                 if(choroData [value] >= maxValues[0] && choroData[value] <= maxValues[1])
-                        $('#'+value).css('fill','#f7fcb9');
-                 if(choroData [value] >= maxValues[1] && choroData[value] <= maxValues[2])
-                        $('#'+value).css('fill','#d9f0a3');
-                 if(choroData [value] >= maxValues[2] && choroData[value] <= maxValues[3])
-                        $('#'+value).css('fill','#addd8e');
-                 if(choroData [value] >= maxValues[3] && choroData[value] <= maxValues[4])
-                        $('#'+value).css('fill','#78c679');
-                 if(choroData [value] >= maxValues[4] && choroData[value] <= maxValues[5])
-                        $('#'+value).css('fill','#41ab5d');
-                 if(choroData [value] >= maxValues[5] && choroData[value] <= maxValues[6])
-                        $('#'+value).css('fill','#238443');
-                 if(choroData [value] >= maxValues[6] && choroData[value] <= maxValues[7])
-                        $('#'+value).css('fill','#006837');
-                 if(choroData [value] >= maxValues[7] && choroData[value] <= maxValues[8])
-                        $('#'+value).css('fill','#004529');
-                 if(choroData [value] > maxValues[8])
-                        $('#'+value).css('fill','#004529');
+                       { $('#'+value).css('fill','#ffffe5');
+                        $('.'+value).css('fill','#ffffe5');
+                        $("#"+value).each(function(){
+                           $('#'+value).attr('title', choroData[value]);
+                        });
+                        }
+
+               else if(choroData [value] >= maxValues[0] && choroData[value] <= maxValues[1])
+                      {  $('#'+value).css('fill','#f7fcb9');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[1] && choroData[value] <= maxValues[2])
+                        {$('#'+value).css('fill','#d9f0a3');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[2] && choroData[value] <= maxValues[3])
+                       { $('#'+value).css('fill','#addd8e');$('#'+value).attr('title', choroData[value]);}
+                  else if(choroData [value] >= maxValues[3] && choroData[value] <= maxValues[4])
+                        {$('#'+value).css('fill','#78c679');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[4] && choroData[value] <= maxValues[5])
+                       { $('#'+value).css('fill','#41ab5d');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[5] && choroData[value] <= maxValues[6])
+                       { $('#'+value).css('fill','#238443');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[6] && choroData[value] <= maxValues[7])
+                        {$('#'+value).css('fill','#006837');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] >= maxValues[7] && choroData[value] <= maxValues[8])
+                       { $('#'+value).css('fill','#004529');$('#'+value).attr('title', choroData[value]);}
+                 else if(choroData [value] > maxValues[8])
+                 {$('#'+value).css('fill','#004529');$('#'+value).attr('title', choroData[value]);}
              }
 }
