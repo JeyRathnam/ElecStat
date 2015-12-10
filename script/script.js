@@ -90,7 +90,7 @@ function mapData(data,state,checkedValues,startYear,endYear,startMonth,endMonth)
              }
              for(var value in choroData){
                  if(choroData [value] >= 0 && choroData[value] < maxValues[0])
-                        $('#'+value).css('fill','#ffffe5');
+                       { $('#'+value).css('fill','#ffffe5');$('#'+value).attr('title', choroData[value]);}
                  if(choroData [value] >= maxValues[0] && choroData[value] <= maxValues[1])
                         $('#'+value).css('fill','#f7fcb9');
                  if(choroData [value] >= maxValues[1] && choroData[value] <= maxValues[2])

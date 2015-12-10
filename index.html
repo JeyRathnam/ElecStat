@@ -11,6 +11,7 @@
         <script type="application/javascript" src="script/script.js"></script>
         <script type="application/javascript" src="script/jQAllRangeSliders-min.js"></script>
         <script type="application/javascript" src="script/Misc.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.2/jquery.qtip.min.js"></script>
         
         <!--Stylesheets-->
         <link rel="stylesheet" href="style/style.css"></link>
@@ -49,8 +50,15 @@ body { font: 12px Arial;}
       
         var map = svg.append('svg').attr('id','choro-map').attr('class','svgclass').attr("width",svgWidth).attr('height',svgHeight).append('g');
         d3.xml("Blank_US_Map.svg", "image/svg+xml", function(xml){
+          map.append('p');  
             $('#choro-map g').append(xml.documentElement);
-            d3.select('#blank_map').attr("viewBox", "10 30 920 500").on("mouseover",function(d) {console.log(this);});
+            d3.select('#blank_map').attr("viewBox", "10 30 920 500");
+            d3.select('#blank_map').selectAll('path').on('mouseover',function(d){
+                console.log($(this).attr('title'));
+               $('#choro-map text').text(this.id);
+            });
+           
+            
         });
         map.selectAll(".palette")
     .data(d3.entries(colorbrewer))
@@ -167,8 +175,6 @@ var yAxis = d3.svg.axis().scale(y)
          svg.append('g').append("path").attr("class",data[datumValue]['source']).attr("d",Valueline(dataForLine));
             
             }
-            console.log(x.invert(d3.mouse(this)[0]));
-            
         }
      
      
@@ -179,7 +185,8 @@ var yAxis = d3.svg.axis().scale(y)
        // var controls = svg.append('svg').attr('id','controls').attr('class','svgclass').attr('width','100%').attr('height','100%').append('g');
         //Doc ready
        $(document).ready(function() {
-
+           
+          $('#ca').click(function(){ console.log('hover');});
           $("#YearSlider").rangeSlider({bounds: {min: 2001, max: 2014}},{defaultValues:{min: 2005, max: 2010}});
           $("#MonthSlider").rangeSlider(
               {bounds: {min: 0, max: 11}},
